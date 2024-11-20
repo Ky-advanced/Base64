@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шифровка и расшифровка изображения</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      width: 800px;
+      margin-top: 20px;
+      text-align: center;
+      background-color: #ffffff;
+      border: 1px solid #333;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    canvas {
+      border: 1px solid #666;
+      margin: 20px 0;
+      padding: 5px;
+      background: #f0f0f0;
+    }
+    input {
+      width: 75%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Шифровка и расшифровка изображения</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .container {
+      width: 800px;
+      margin-top: 20px;
+      text-align: center;
+      background-color: #ffffff;
+      border: 1px solid #333;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    canvas {
+      border: 1px solid #666;
+      margin: 20px 0;
+      padding: 5px;
+      background: #f0f0f0;
+    }
+    input {
+      width: 75%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+<body>
+  <div class="container">
+    <canvas id="imageCanvas" width="640" height="480"></canvas>
+    <br>
+    <input type="file" id="imageFile" accept="image/*"/>
+    <br>
+    <button onclick="loadImage()">Загрузить изображение</button>
+    <br>
+    <textarea rows="10" cols="80" readonly></textarea>
+    <br>
+    <button onclick="encryptImage()">Зашифровать изображение</button>
+    <br>
+    <button onclick="decryptImage()">Расшифровать изображение</button>
+  </div>
+  <script>
+    const imageCanvas = document.getElementById("imageCanvas");
+    const imageFile = document.getElementById("imageFile");
+    const textArea = document.querySelector('textarea');
+
+    function loadImage() {
+      const file = imageFile.files[0];
+      if (!file.type.match(/^image\/.test(file.type)) {
+        alert("Пожалуйста, выберите изображение.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        imageCanvas.src = reader.result;
+      };
+    }
+
+    function encryptImage() {
+      const ctx = imageCanvas.getContext('2d');
+      const imgDataURL = imageCanvas.toDataURL();
+      textArea.value = atob(imgDataURL.split(',')[0].split(',')[0];
+    }
+
+    function decryptImage() {
+      const encryptedText = textArea.value;
+      const decryptedDataUrl = "data:image/png;base64," + encryptedText;
+      imageCanvas.src = decryptedDataUrl;
+    }
+
+    imageFile.addEventListener('change', loadImage);
+    imageCanvas.addEventListener('click', encryptImage);
+    textArea.addEventListener('focus', decryptImage);
+  </script>
+</body>
+</html>
